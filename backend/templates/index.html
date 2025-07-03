@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABS NFT Marketplace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* Reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar include will inherit dark theme */
+        .navbar,
+        .navbar * {
+            background: rgba(10, 25, 47, 0.9) !important;
+            color: #a9d6e5 !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: rgba(10, 25, 47, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 4rem 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, #4cc9f0, #4361ee, #3a0ca3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p.lead {
+            font-size: 1.25rem;
+            color: #a9d6e5;
+        }
+
+        /* Main container spacing */
+        .container {
+            padding: 2rem 0;
+        }
+
+        h2.mb-4 {
+            color: #f8f9fa;
+            border-bottom: 2px solid #4361ee;
+            display: inline-block;
+            padding-bottom: .3rem;
+            margin-bottom: 1.5rem !important;
+        }
+
+        /* Glass cards */
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-img-top.nft-image {
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(1.1);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .text-truncate {
+            color: #c7d2fe;
+        }
+
+        .fw-bold {
+            color: #4cc9f0;
+        }
+
+        .owner-address {
+            color: #a9d6e5 !important;
+        }
+
+        /* Footer of card */
+        .card-footer {
+            background: rgba(255, 255, 255, 0.1);
+            border-top: none;
+            padding: 1rem 1.5rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            border: none;
+            border-radius: 12px;
+            padding: .75rem 1.25rem;
+            font-weight: 600;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(58, 12, 163, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .create-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #4cc9f0, #4361ee) !important;
+            width: 4.5rem;
+            height: 4.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 20px rgba(76, 201, 240, 0.4);
+        }
+
+        /* Spinner & loading */
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: #4cc9f0;
+        }
+
+        .visually-hidden,
+        .text-muted {
+            color: #a9d6e5 !important;
+        }
+
+        /* Modal */
+        .modal-content {
+            background: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 16px;
+            color: #f8f9fa;
+        }
+
+        .modal-header {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .modal-title {
+            color: #4cc9f0;
+        }
+
+        .form-label {
+            color: #a9d6e5;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(74, 144, 226, 0.3);
+            color: #fff;
+            border-radius: 12px;
+        }
+
+        .form-control:focus {
+            border-color: #4cc9f0;
+            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        /* Alerts for transaction status */
+        .alert-info {
+            background: rgba(74, 144, 226, 0.2) !important;
+            color: #4cc9f0 !important;
+            border-radius: 12px;
+            border: none;
+        }
+
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.2) !important;
+            color: #dc3545 !important;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'components/navbar.html' %}
+
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">ABS NFT Marketplace</h1>
+            <p class="lead">Power by ZKSync . <br>Discover, collect, and sell unique NFTs on the ZKSync network</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="mb-4">NFTs For Sale</h2>
+        <div class="row" id="nft-listings">
+            <!-- NFTs will be loaded here via JavaScript -->
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Loading NFTs...</p>
+            </div>
+        </div>
+    </div>
+
+    {% if user_address %}
+    <a href="/profile#create" class="btn btn-primary btn-lg create-btn">
+        <i class="fas fa-plus"></i>
+    </a>
+    {% endif %}
+
+    <!-- Connection Modal -->
+    <div class="modal fade" id="connectModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Connect Wallet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please sign the message in your wallet to connect:</p>
+                    <div class="mb-3">
+                        <label class="form-label">Wallet Address</label>
+                        <input type="text" class="form-control" id="wallet-address" readonly>
+                    </div>
+                    <button id="sign-message-btn" class="btn btn-primary w-100">
+                        <span class="spinner-border spinner-border-sm d-none" id="sign-spinner"></span>
+                        Sign Message
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>LegalConnect</h3>
+                    <p style="color: #bbb; margin-bottom: 20px;">Providing accessible legal solutions through technology
+                        and professional expertise.</p>
+                    <div style="display: flex; gap: 15px;">
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+
+
+
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Legal Avenue, Law City</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contact@legalconnect.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 LegalConnect. All rights reserved. | Designed with <i class="fas fa-heart"
+                        style="color: var(--accent);"></i> Tahmid Hasan Rafi</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ... rest of your scripts unchanged ... -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Add Web3.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script>
+        // Transaction normalization helper
+        function normalizeTx(tx) {
+            const out = { ...tx };
+            const fields = ['chainId', 'gas', 'gasPrice', 'nonce', 'value'];
+
+            fields.forEach(field => {
+                if (out[field] !== undefined) {
+                    // Convert to hex string (handles both numbers and bigints)
+                    try {
+                        const value = out[field];
+                        if (typeof value === 'number' || typeof value === 'bigint') {
+                            out[field] = '0x' + BigInt(value).toString(16);
+                        } else if (typeof value === 'string') {
+                            // Handle hex strings that might be missing 0x prefix
+                            if (!value.startsWith('0x')) {
+                                out[field] = '0x' + value;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn(`Error normalizing field ${field}:`, e);
+                    }
+                }
+            });
+            return out;
+        }
+
+        // Connect Wallet Functionality
+        document.getElementById('connect-btn')?.addEventListener('click', async () => {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask!');
+                return;
+            }
+
+            try {
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                const address = accounts[0];
+                document.getElementById('wallet-address').value = address;
+
+                const modal = new bootstrap.Modal('#connectModal');
+                modal.show();
+            } catch (error) {
+                console.error('Connection error:', error);
+                alert('Wallet connection failed: ' + error.message);
+            }
+        });
+
+        document.getElementById('sign-message-btn').addEventListener('click', async () => {
+            const signBtn = document.getElementById('sign-message-btn');
+            const spinner = document.getElementById('sign-spinner');
+            signBtn.disabled = true;
+            spinner.classList.remove('d-none');
+
+            try {
+                const address = document.getElementById('wallet-address').value;
+                const message = `Welcome to ABS NFT Marketplace!\n\nSign this message to authenticate with the site.\n\nNonce: ${Date.now()}`;
+
+                const signature = await ethereum.request({
+                    method: 'personal_sign',
+                    params: [message, address]
+                });
+
+                const response = await fetch('/connect', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ signature, message, address })
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Connection failed');
+                }
+            } catch (error) {
+                console.error('Signature error:', error);
+                alert('Error: ' + error.message);
+                signBtn.disabled = false;
+                spinner.classList.add('d-none');
+            }
+        });
+
+        // Disconnect Wallet
+        document.getElementById('disconnect-btn')?.addEventListener('click', () => {
+            fetch('/disconnect', { method: 'POST' })
+                .then(() => location.reload());
+        });
+
+        // Load NFT listings
+        async function loadListings() {
+            try {
+                const response = await fetch('/listings');
+                const data = await response.json();
+
+                const container = document.getElementById('nft-listings');
+                container.innerHTML = '';
+
+                if (data.success && data.nfts.length > 0) {
+                    data.nfts.forEach(nft => {
+                        const col = document.createElement('div');
+                        col.className = 'col-lg-3 col-md-4 col-sm-6 mb-4';
+                        col.innerHTML = `
+                            <div class="card h-100">
+                                <img src="${nft.image || 'https://placehold.co/400x400?text=No+Image'}" 
+                                     class="card-img-top nft-image" alt="${nft.name}"
+                                     onerror="this.src='https://placehold.co/400x400?text=Image+Not+Available'">
+                                <div class="card-body">
+                                    <h5 class="card-title">${nft.name}</h5>
+                                    <p class="text-truncate">${nft.description || 'No description'}</p>
+                                    <p class="fw-bold">Price: ${nft.price} ETH</p>
+                                    
+                                    <p class="small text-muted owner-address">Owner: ${nft.owner.substring(0, 6)}...${nft.owner.substring(nft.owner.length - 4)}</p>
+                                   
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <button class="btn btn-primary buy-btn w-100" 
+                                            data-id="${nft.token_id}" 
+                                            data-price="${nft.price}">
+                                        <i class="fas fa-shopping-cart me-1"></i> Buy Now
+                                    </button>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(col);
+                    });
+                } else {
+                    container.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="fas fa-box-open fa-3x mb-3"></i>
+                            <h3>No NFTs listed for sale</h3>
+                            <p class="text-muted">Be the first to list your NFT!</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load listings:', error);
+                document.getElementById('nft-listings').innerHTML = `
+                    <div class="col-12 text-center py-5 text-danger">
+                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                        <h3>Error loading NFTs</h3>
+                        <p>Please try again later</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Network check function
+        async function checkNetwork() {
+            const ZKSYNC_CHAIN_ID = '0x12c'; // 300 in hex
+            try {
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                if (chainId !== ZKSYNC_CHAIN_ID) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: ZKSYNC_CHAIN_ID }]
+                        });
+
+                        // Verify switch
+                        const newChainId = await window.ethereum.request({ method: 'eth_chainId' });
+                        if (newChainId !== ZKSYNC_CHAIN_ID) {
+                            throw new Error('Failed to switch to zkSync Sepolia');
+                        }
+                        return true;
+                    } catch (switchError) {
+                        // Chain not added to wallet
+                        if (switchError.code === 4902) {
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: ZKSYNC_CHAIN_ID,
+                                    chainName: 'zkSync Sepolia Testnet',
+                                    nativeCurrency: {
+                                        name: 'Ether',
+                                        symbol: 'ETH',
+                                        decimals: 18
+                                    },
+                                    rpcUrls: ['https://sepolia.era.zksync.dev'],
+                                    blockExplorerUrls: ['https://sepolia.explorer.zksync.io/']
+                                }]
+                            });
+                            return true;
+                        }
+                        throw switchError;
+                    }
+                }
+                return true;
+            } catch (error) {
+                console.error('Network error:', error);
+                alert('Network error: ' + error.message);
+                throw error;
+            }
+        }
+
+        // Gas estimation helper
+        async function estimateGas(txData) {
+            try {
+                const gasEstimate = await ethereum.request({
+                    method: 'eth_estimateGas',
+                    params: [txData]
+                });
+                return Math.min(Math.floor(gasEstimate * 1.2), 2000000); // 20% buffer
+            } catch {
+                return 500000; // Fallback gas limit
+            }
+        }
+
+        // Transaction confirmation helper
+        async function waitForTransaction(txHash) {
+            const EXPLORER_URL = "https://sepolia.explorer.zksync.io/tx/";
+            const statusEl = document.createElement('div');
+            statusEl.className = 'alert alert-info position-fixed top-0 start-50 translate-middle-x mt-3 d-flex align-items-center';
+            statusEl.style.zIndex = '1050';
+            statusEl.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <div class="spinner-border spinner-border-sm me-3" role="status"></div>
+                    <div>
+                        <strong>Processing Transaction:</strong>
+                        <div class="tx-link">
+                            <a href="${EXPLORER_URL}${txHash}" target="_blank">${txHash.substring(0, 6)}...${txHash.substring(txHash.length - 4)}</a>
+                        </div>
+                        <div class="mt-1">Confirmations: <span class="tx-attempt">0</span>/30</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(statusEl);
+
+            const attemptEl = statusEl.querySelector('.tx-attempt');
+            const maxAttempts = 30;
+            for (let i = 1; i <= maxAttempts; i++) {
+                attemptEl.textContent = i;
+                try {
+                    const receipt = await ethereum.request({
+                        method: 'eth_getTransactionReceipt',
+                        params: [txHash]
+                    });
+                    if (receipt) {
+                        statusEl.remove();
+                        return receipt;
+                    }
+                } catch (e) {
+                    console.log(`Attempt ${i} failed: ${e.message}`);
+                }
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+
+            statusEl.remove();
+            throw new Error('Transaction confirmation timeout after 60 seconds');
+        }
+
+        // Handle buy button clicks
+        document.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('buy-btn')) {
+                const tokenId = parseInt(e.target.dataset.id);
+                const price = parseFloat(e.target.dataset.price);
+
+                if (!confirm(`Buy NFT #${tokenId} for ${price} ETH?`)) {
+                    return;
+                }
+
+                try {
+                    await checkNetwork();
+
+                    const accounts = await ethereum.request({ method: 'eth_accounts' });
+                    if (!accounts.length) {
+                        throw new Error('Wallet not connected');
+                    }
+
+                    // Use Web3.js for conversions
+                    const web3 = new Web3(window.ethereum);
+                    const priceWei = web3.utils.toHex(web3.utils.toWei(price.toString(), 'ether'));
+
+                    // Get contract ABI
+                    const abiResponse = await fetch('/get-abi');
+                    const abiData = await abiResponse.json();
+
+                    if (!abiData.success) {
+                        throw new Error('Failed to get contract ABI');
+                    }
+
+                    // Create contract instance
+                    const contract = new web3.eth.Contract(
+                        abiData.abi,
+                        '{{ contract_address }}'
+                    );
+
+                    // Build buy transaction
+                    const buyTx = {
+                        from: accounts[0],
+                        to: '{{ contract_address }}',
+                        value: priceWei,
+                        data: contract.methods.buyNFT(tokenId).encodeABI(),
+                        chainId: '0x12c' // zkSync Sepolia
+                    };
+
+                    // Estimate gas
+                    buyTx.gas = await estimateGas(buyTx);
+
+                    // Normalize transaction fields for MetaMask
+                    const normalizedTx = normalizeTx(buyTx);
+
+                    // Send transaction
+                    const txHash = await ethereum.request({
+                        method: 'eth_sendTransaction',
+                        params: [normalizedTx]
+                    });
+
+                    // Wait for confirmation
+                    const receipt = await waitForTransaction(txHash);
+                    if (receipt.status) {
+                        alert(`🎉 NFT purchased successfully!\n\nView transaction: https://sepolia.explorer.zksync.io/tx/${txHash}`);
+                        loadListings(); // Refresh listings
+                    } else {
+                        throw new Error('Transaction failed on blockchain');
+                    }
+                } catch (error) {
+                    console.error('Buy error:', error);
+                    alert('Error: ' + error.message);
+                }
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadListings();
+        });
+    </script>
+
+</body>
+
+</html>
