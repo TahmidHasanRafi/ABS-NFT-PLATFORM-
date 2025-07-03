@@ -3,3 +3,4 @@ python-dotenv
 web3
 requests
 boto3
+gunicorn
