@@ -1,0 +1,5 @@
+Flask
+python-dotenv
+web3
+requests
+boto3
