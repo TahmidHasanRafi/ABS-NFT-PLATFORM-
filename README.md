@@ -22,13 +22,7 @@ A decentralized NFT Marketplace built on the ZKSync Era network, allowing users 
 ---
 
 ## Demo
->![Screenshot 2025-07-04 005412](https://github.com/user-attachments/assets/43edaef5-4e78-4a26-8048-2bbd47c9bdc0)
->![Screenshot 2025-07-04 005438](https://github.com/user-attachments/assets/b2bce6f6-0d11-4bae-a0cc-88c1e80aa245)
->![Screenshot 2025-07-04 005506](https://github.com/user-attachments/assets/1656d392-7ac1-4f40-8dbd-818a8a373964)
->![Screenshot 2025-07-04 005523](https://github.com/user-attachments/assets/33656f6d-d78e-4f72-bf70-f6d465cc1b4f)
->![Screenshot 2025-07-04 005556](https://github.com/user-attachments/assets/c2ef1ef4-8f18-43c5-965b-74bc32a76ef9)
->![Screenshot 2025-07-04 005647](https://github.com/user-attachments/assets/eae95536-ce4b-4a5f-906c-1ebfa6e050fc)
-
+-video https://youtu.be/XQYFUFkpM48
 ---
 
 ## Features
