@@ -11,13 +11,6 @@ A decentralized NFT Marketplace built on the ZKSync Era network, allowing users 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Prerequisites](#prerequisites)
-- [Installation & Setup](#installation--setup)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contract Details](#contract-details)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ---
 
