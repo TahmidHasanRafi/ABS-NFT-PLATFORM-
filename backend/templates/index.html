@@ -2,315 +2,417 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ABS NFT Marketplace</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <meta charset="utf-8">
+    <meta name="author" content="templatemo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <title>Liberty NFT Marketplace - HTML CSS Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-liberty-market.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.css') }}">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
     <style>
-        /* Reset & base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .wallet-connect {
+            display: flex;
+            align-items: center;
         }
 
-        body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #fff;
-            min-height: 100vh;
+        #wallet-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        a {
-            text-decoration: none;
-        }
-
-        /* Navbar include will inherit dark theme */
-        .navbar,
-        .navbar * {
-            background: rgba(10, 25, 47, 0.9) !important;
-            color: #a9d6e5 !important;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: rgba(10, 25, 47, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 4rem 0;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-        }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(to right, #4cc9f0, #4361ee, #3a0ca3);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .hero-section p.lead {
-            font-size: 1.25rem;
-            color: #a9d6e5;
-        }
-
-        /* Main container spacing */
-        .container {
-            padding: 2rem 0;
-        }
-
-        h2.mb-4 {
-            color: #f8f9fa;
-            border-bottom: 2px solid #4361ee;
-            display: inline-block;
-            padding-bottom: .3rem;
-            margin-bottom: 1.5rem !important;
-        }
-
-        /* Glass cards */
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border: none;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .card-img-top.nft-image {
-            height: 200px;
-            object-fit: cover;
-            filter: brightness(1.1);
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card-title {
-            color: #f8f9fa;
-            font-weight: 600;
-        }
-
-        .text-truncate {
-            color: #c7d2fe;
-        }
-
-        .fw-bold {
-            color: #4cc9f0;
-        }
-
-        .owner-address {
-            color: #a9d6e5 !important;
-        }
-
-        /* Footer of card */
-        .card-footer {
+        .wallet-address {
             background: rgba(255, 255, 255, 0.1);
-            border-top: none;
-            padding: 1rem 1.5rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
         }
 
-        /* Buttons */
-        .btn-primary {
-            background: linear-gradient(135deg, #4361ee, #3a0ca3);
-            border: none;
-            border-radius: 12px;
-            padding: .75rem 1.25rem;
-            font-weight: 600;
-            transition: transform .3s ease, box-shadow .3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(58, 12, 163, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .create-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: linear-gradient(135deg, #4cc9f0, #4361ee) !important;
-            width: 4.5rem;
-            height: 4.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 8px 20px rgba(76, 201, 240, 0.4);
-        }
-
-        /* Spinner & loading */
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            color: #4cc9f0;
-        }
-
-        .visually-hidden,
-        .text-muted {
-            color: #a9d6e5 !important;
-        }
-
-        /* Modal */
-        .modal-content {
-            background: rgba(10, 25, 47, 0.8);
-            backdrop-filter: blur(10px);
-            border: none;
-            border-radius: 16px;
-            color: #f8f9fa;
-        }
-
-        .modal-header {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .modal-title {
-            color: #4cc9f0;
-        }
-
-        .form-label {
-            color: #a9d6e5;
-        }
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(74, 144, 226, 0.3);
+        #disconnect-btn {
+            background: none;
+            border: 1px solid #fff;
             color: #fff;
-            border-radius: 12px;
-        }
-
-        .form-control:focus {
-            border-color: #4cc9f0;
-            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
-        }
-
-        .btn-close {
-            filter: invert(1);
-        }
-
-        /* Alerts for transaction status */
-        .alert-info {
-            background: rgba(74, 144, 226, 0.2) !important;
-            color: #4cc9f0 !important;
-            border-radius: 12px;
-            border: none;
-        }
-
-        .alert-danger {
-            background: rgba(220, 53, 69, 0.2) !important;
-            color: #dc3545 !important;
-        }
-
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--accent);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-        }
-
-        .footer-links a i {
-            margin-right: 10px;
-            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 4px;
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #999;
-            font-size: 0.9rem;
+        #disconnect-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 
 <body>
-    {% include 'components/navbar.html' %}
 
-    <div class="hero-section">
-        <div class="container text-center">
-            <h1 class="display-4 fw-bold">ABS NFT Marketplace</h1>
-            <p class="lead">Discover, collect, and sell unique NFTs on the ZKSync network.<br>Developed and tested on the zkSync Sepolia test network</p>
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </div>
+    <!-- ***** Preloader End ***** -->
 
-    <div class="container">
-        <h2 class="mb-4">NFTs For Sale</h2>
-        <div class="row" id="nft-listings">
-            <!-- NFTs will be loaded here via JavaScript -->
-            <div class="col-12 text-center py-5">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                            <img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt="">
+
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><a href="explore.html">Explore</a></li>
+
+
+                            {% if user_address %}
+                            <a href="/profile#create" class="btn btn-primary btn-lg create-btn">
+                                Create Yours</a></li>
+                            </a>
+                            {% endif %}
+                            <!-- Added Connect and Profile links -->
+                            <li id="profile-nav-item" style="display: none;">
+                                <a href="/profile">Profile</a>
+                            </li>
+                            <li>
+                                <div class="wallet-connect">
+                                    <div id="wallet-section">
+                                        <button id="connect-btn" class="btn btn-primary">Connect Wallet</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
                 </div>
-                <p>Loading NFTs...</p>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 align-self-center">
+                    <div class="header-text">
+                        <h6>ABS NFT Market</h6>
+                        <h2>Create, Sell &amp; Collect Top NFT’s.</h2>
+                        <p>ABS NFT Market is a really cool and professional design for your NFT websites. This HTML
+                            CSS template
+                            is based on Bootstrap v5 and it is designed for NFT related web portals. Liberty can be
+                            freely downloaded
+                            from TemplateMo's free css templates.</p>
+                        <div class="buttons">
+                            <div class="border-button">
+                                <a href="#explore-section">Explore Top NFTs</a>
+                            </div>
+                            <div class="main-button">
+                                <a href="https://www.youtube.com/watch?v=XQYFUFkpM48" target="_blank">Watch Our
+                                    Videos</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <div class="owl-banner owl-carousel">
+                        <div class="item">
+                            <img src="{{ url_for('static', filename='assets/images/banner-01.png') }}" alt="">
+
+                        </div>
+                        <div class="item">
+                            <img src="{{ url_for('static', filename='assets/images/banner-02.png') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+    <div class="categories-collections">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="categories">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-heading">
+                                    <div class="line-dec"></div>
+                                    <h2>Browse Through Our <em>Categories</em> Here.</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="item">
+                                    <div class="icon">
+                                        <img src="{{ url_for('static', filename='assets/images/icon-01.png') }}" alt="">
+                                    </div>
+                                    <h4>Blockchain</h4>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="item">
+                                    <div class="icon">
+                                        <img src="{{ url_for('static', filename='assets/images/icon-02.png') }}" alt="">
+                                    </div>
+                                    <h4>Digital Art</h4>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="item">
+                                    <div class="icon">
+                                        <img src="{{ url_for('static', filename='assets/images/icon-03.png') }}" alt="">
+                                    </div>
+                                    <h4>Music Art</h4>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="item">
+                                    <div class="icon">
+                                        <img src="{{ url_for('static', filename='assets/images/icon-04.png') }}" alt="">
+                                    </div>
+                                    <h4>Virtual World</h4>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="item">
+                                    <div class="icon">
+                                        <img src="{{ url_for('static', filename='assets/images/icon-05.png') }}" alt="">
+                                    </div>
+                                    <h4>Valuable</h4>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-6">
+                                <div class="item">
+                                    <div class="icon">
+                                        <img src="{{ url_for('static', filename='assets/images/icon-06.png') }}" alt="">
+                                    </div>
+                                    <h4>Triple NFT</h4>
+                                    <div class="icon-button">
+                                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="collections">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-heading">
+                                    <div class="line-dec"></div>
+                                    <h2>Explore Some Hot <em>Collections</em> In Market.</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="owl-collection owl-carousel">
+                                    <div class="item">
+                                        <img src="{{ url_for('static', filename='assets/images/collection-01.jpg') }}"
+                                            alt="">
+
+                                        <div class="down-content">
+                                            <h4>Mutant Bored Ape Yacht Club</h4>
+                                            <span class="collection">Items In
+                                                Collection:<br><strong>310/340</strong></span>
+                                            <span class="category">Category:<br><strong>Digital Crypto</strong></span>
+                                            <div class="main-button">
+                                                <a href="explore.html">Explore Mutant</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="{{ url_for('static', filename='assets/images/collection-01.jpg') }}"
+                                            alt="">
+                                        <div class="down-content">
+                                            <h4>Bored Ape Kennel Club</h4>
+                                            <span class="collection">Items In
+                                                Collection:<br><strong>324/324</strong></span>
+                                            <span class="category">Category:<br><strong>Visual Art</strong></span>
+                                            <div class="main-button">
+                                                <a href="explore.html">Explore Bored Ape</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="{{ url_for('static', filename='assets/images/collection-01.jpg') }}"
+                                            alt="">
+                                        <div class="down-content">
+                                            <h4>Genesis Collective Statue</h4>
+                                            <span class="collection">Items In
+                                                Collection:<br><strong>380/394</strong></span>
+                                            <span class="category">Category:<br><strong>Music Art</strong></span>
+                                            <div class="main-button">
+                                                <a href="explore.html">Explore Genesis</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="{{ url_for('static', filename='assets/images/collection-01.jpg') }}"
+                                            alt="">
+                                        <div class="down-content">
+                                            <h4>Worldwide Artwork Ground</h4>
+                                            <span class="collection">Items In
+                                                Collection:<br><strong>426/468</strong></span>
+                                            <span class="category">Category:<br><strong>Blockchain</strong></span>
+                                            <div class="main-button">
+                                                <a href="explore.html">Explore Worldwide</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    {% if user_address %}
-    <a href="/profile#create" class="btn btn-primary btn-lg create-btn">
-        <i class="fas fa-plus"></i>
-    </a>
-    {% endif %}
+    <div class="create-nft">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="section-heading">
+                        <div class="line-dec"></div>
+                        <h2>Create Your NFT & Put It On The Market.</h2>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="main-button">
+                        {% if user_address %}
+                        <a href="/profile#create" class="btn btn-primary btn-lg create-btn">
+                            Create Your NFT now</a></li>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="item first-item">
+                        <div class="number">
+                            <h6>1</h6>
+                        </div>
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='assets/images/icon-02.png') }}" alt="">
+
+                        </div>
+                        <h4>Set Up Your Wallet</h4>
+                        <p>NFT means Non-Fungible Token that are used in digital cryptocurrency markets. There are many
+                            different
+                            kinds of NFTs in the industry.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="item second-item">
+                        <div class="number">
+                            <h6>2</h6>
+                        </div>
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='assets/images/icon-04.png') }}" alt="">
+
+                        </div>
+                        <h4>Add Your Digital NFT</h4>
+                        <p>There are 5 different HTML pages included in this NFT <a href="https://templatemo.com/page/1"
+                                target="_blank" rel="nofollow">website template</a>. You can edit or modify any section
+                            on any page as
+                            you required.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="item">
+                        <div class="icon">
+                            <img src="{{ url_for('static', filename='assets/images/icon-06.png') }}" alt="">
+
+                        </div>
+                        <h4>Sell Your NFT &amp; Make Profit</h4>
+                        <p>If you would like to support our TemplateMo website, please visit <a rel="nofollow"
+                                href="https://templatemo.com/contact" target="_parent">our contact page</a> to make a
+                            PayPal
+                            contribution. Thank you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="currently-market" id="explore-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <div class="line-dec"></div>
+                        <h2><em>Items</em> Currently In The Market.</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="filters">
+                        <ul>
+                            <li data-filter="*" class="active">All Items</li>
+                            <li data-filter=".msc">Music Art</li>
+                            <li data-filter=".dig">Digital Art</li>
+                            <li data-filter=".blc">Blockchain</li>
+                            <li data-filter=".vtr">Virtual</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="nft-grid" id="nft-listings">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">Loading NFTs...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Connection Modal -->
     <div class="modal fade" id="connectModal" tabindex="-1">
@@ -337,54 +439,197 @@
 
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>LegalConnect</h3>
-                    <p style="color: #bbb; margin-bottom: 20px;">Providing accessible legal solutions through technology
-                        and professional expertise.</p>
-                    <div style="display: flex; gap: 15px;">
-                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
-                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright © 2025<a href="#">ABS</a> NFT Marketplace Co., Ltd. All rights reserved.
+                        &nbsp;&nbsp;
+                        Designed by <a title="HTML CSS Templates" rel="sponsored" href="https://templatemo.com"
+                            target="_blank">Tahmid hasan Rafi</a></p>
                 </div>
-
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
-                    </ul>
-                </div>
-
-
-
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Legal Avenue, Law City</a></li>
-                        <li><a href="#"><i class="fas fa-phone"></i> (555) 123-4567</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> contact@legalconnect.com</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2025 LegalConnect. All rights reserved. | Designed with <i class="fas fa-heart"
-                        style="color: var(--accent);"></i> Tahmid Hasan Rafi</p>
             </div>
         </div>
     </footer>
 
-    <!-- ... rest of your scripts unchanged ... -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/js/isotope.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/tabs.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/popup.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Add Web3.js library -->
     <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
     <script>
+        // ================ Improved Wallet Detection ================
+        async function detectWallet() {
+            // Check if ethereum is injected directly
+            if (window.ethereum) {
+                return window.ethereum;
+            }
+
+            // Check for multiple wallet providers
+            if (window.web3?.currentProvider) {
+                return window.web3.currentProvider;
+            }
+
+            // Wait for wallet injection with timeout
+            return new Promise((resolve) => {
+                if (window.ethereum) {
+                    return resolve(window.ethereum);
+                }
+
+                const listener = () => {
+                    if (window.ethereum) {
+                        resolve(window.ethereum);
+                        document.removeEventListener('ethereum#initialized', listener);
+                    }
+                };
+
+                document.addEventListener('ethereum#initialized', listener, {
+                    once: true,
+                });
+
+                // Timeout after 3 seconds
+                setTimeout(() => {
+                    document.removeEventListener('ethereum#initialized', listener);
+                    resolve(null);
+                }, 3000);
+            });
+        }
+
+        // ================ Wallet Connection Functions ================
+        async function connectWallet() {
+            const ethereum = await detectWallet();
+
+            if (!ethereum) {
+                alert('Please install MetaMask or another Ethereum wallet!');
+                return;
+            }
+
+            try {
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                const address = accounts[0];
+                document.getElementById('wallet-address').value = address;
+
+                const modal = new bootstrap.Modal('#connectModal');
+                modal.show();
+            } catch (error) {
+                console.error('Connection error:', error);
+
+                // Handle specific error cases
+                if (error.code === 4001) {
+                    alert('Please connect your wallet to continue.');
+                } else {
+                    alert('Wallet connection failed: ' + error.message);
+                }
+            }
+        }
+
+        document.getElementById('disconnect-btn')?.addEventListener('click', () => {
+            fetch('/disconnect', { method: 'POST' })
+                .then(() => location.reload());
+        });
+
+        // ================ Navbar State Management ================
+        function updateNavbar(address) {
+            const profileNavItem = document.getElementById('profile-nav-item');
+            const walletSection = document.getElementById('wallet-section');
+
+            if (address) {
+                const truncatedAddress = address.substring(0, 6) + '...' + address.substring(address.length - 4);
+                walletSection.innerHTML = `
+          <div class="text-light me-3 d-flex align-items-center">
+            <span class="wallet-address">${truncatedAddress}</span>
+          </div>
+          <button id="disconnect-btn" class="btn btn-outline-light">Disconnect</button>
+        `;
+                profileNavItem.style.display = 'block';
+
+                // Add disconnect event listener
+                document.getElementById('disconnect-btn')?.addEventListener('click', () => {
+                    fetch('/disconnect', { method: 'POST' })
+                        .then(() => {
+                            localStorage.removeItem('user_address');
+                            updateNavbar(null);
+                        })
+                        .catch(error => console.error('Disconnect error:', error));
+                });
+            } else {
+                walletSection.innerHTML = `<button id="connect-btn" class="btn btn-primary">Connect Wallet</button>`;
+                profileNavItem.style.display = 'none';
+
+                // Add connect event listener
+                document.getElementById('connect-btn').addEventListener('click', connectWallet);
+            }
+        }
+
+        // ================ Page Initialization ================
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize wallet connection state
+            const userAddress = localStorage.getItem('user_address');
+            if (userAddress) {
+                updateNavbar(userAddress);
+            } else {
+                updateNavbar(null);
+            }
+
+            // Add event listener for sign message button
+            document.getElementById('sign-message-btn')?.addEventListener('click', async () => {
+                const signBtn = document.getElementById('sign-message-btn');
+                const spinner = document.getElementById('sign-spinner');
+                signBtn.disabled = true;
+                spinner.classList.remove('d-none');
+
+                try {
+                    const address = document.getElementById('wallet-address').value;
+                    const message = `Welcome to ABS NFT Marketplace!\n\nSign this message to authenticate with the site.\n\nNonce: ${Date.now()}`;
+
+                    const ethereum = await detectWallet();
+                    if (!ethereum) {
+                        throw new Error('Wallet not detected');
+                    }
+
+                    const signature = await ethereum.request({
+                        method: 'personal_sign',
+                        params: [message, address]
+                    });
+
+                    const response = await fetch('/connect', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ signature, message, address })
+                    });
+
+                    if (response.ok) {
+                        localStorage.setItem('user_address', address);
+                        updateNavbar(address);
+                        const modal = bootstrap.Modal.getInstance('#connectModal');
+                        modal.hide();
+                    } else {
+                        const error = await response.json();
+                        throw new Error(error.error || 'Connection failed');
+                    }
+                } catch (error) {
+                    console.error('Signature error:', error);
+                    alert('Error: ' + error.message);
+                } finally {
+                    signBtn.disabled = false;
+                    spinner.classList.add('d-none');
+                }
+            });
+
+            // Load NFT listings
+            loadListings();
+        });
+
+        // ================ Existing NFT Functions ================
         // Transaction normalization helper
         function normalizeTx(tx) {
             const out = { ...tx };
@@ -410,67 +655,6 @@
             });
             return out;
         }
-
-        // Connect Wallet Functionality
-        document.getElementById('connect-btn')?.addEventListener('click', async () => {
-            if (typeof window.ethereum === 'undefined') {
-                alert('Please install MetaMask!');
-                return;
-            }
-
-            try {
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                const address = accounts[0];
-                document.getElementById('wallet-address').value = address;
-
-                const modal = new bootstrap.Modal('#connectModal');
-                modal.show();
-            } catch (error) {
-                console.error('Connection error:', error);
-                alert('Wallet connection failed: ' + error.message);
-            }
-        });
-
-        document.getElementById('sign-message-btn').addEventListener('click', async () => {
-            const signBtn = document.getElementById('sign-message-btn');
-            const spinner = document.getElementById('sign-spinner');
-            signBtn.disabled = true;
-            spinner.classList.remove('d-none');
-
-            try {
-                const address = document.getElementById('wallet-address').value;
-                const message = `Welcome to ABS NFT Marketplace!\n\nSign this message to authenticate with the site.\n\nNonce: ${Date.now()}`;
-
-                const signature = await ethereum.request({
-                    method: 'personal_sign',
-                    params: [message, address]
-                });
-
-                const response = await fetch('/connect', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ signature, message, address })
-                });
-
-                if (response.ok) {
-                    location.reload();
-                } else {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Connection failed');
-                }
-            } catch (error) {
-                console.error('Signature error:', error);
-                alert('Error: ' + error.message);
-                signBtn.disabled = false;
-                spinner.classList.add('d-none');
-            }
-        });
-
-        // Disconnect Wallet
-        document.getElementById('disconnect-btn')?.addEventListener('click', () => {
-            fetch('/disconnect', { method: 'POST' })
-                .then(() => location.reload());
-        });
 
         // Load NFT listings
         async function loadListings() {
@@ -504,9 +688,6 @@
                                             data-price="${nft.price}">
                                         <i class="fas fa-shopping-cart me-1"></i> Buy Now
                                     </button>
-                                    
-                                    
-                                    
                                 </div>
                             </div>
                         `;
@@ -537,16 +718,21 @@
         async function checkNetwork() {
             const ZKSYNC_CHAIN_ID = '0x12c'; // 300 in hex
             try {
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                const ethereum = await detectWallet();
+                if (!ethereum) {
+                    throw new Error('Wallet not detected');
+                }
+
+                const chainId = await ethereum.request({ method: 'eth_chainId' });
                 if (chainId !== ZKSYNC_CHAIN_ID) {
                     try {
-                        await window.ethereum.request({
+                        await ethereum.request({
                             method: 'wallet_switchEthereumChain',
                             params: [{ chainId: ZKSYNC_CHAIN_ID }]
                         });
 
                         // Verify switch
-                        const newChainId = await window.ethereum.request({ method: 'eth_chainId' });
+                        const newChainId = await ethereum.request({ method: 'eth_chainId' });
                         if (newChainId !== ZKSYNC_CHAIN_ID) {
                             throw new Error('Failed to switch to zkSync Sepolia');
                         }
@@ -554,7 +740,7 @@
                     } catch (switchError) {
                         // Chain not added to wallet
                         if (switchError.code === 4902) {
-                            await window.ethereum.request({
+                            await ethereum.request({
                                 method: 'wallet_addEthereumChain',
                                 params: [{
                                     chainId: ZKSYNC_CHAIN_ID,
@@ -584,6 +770,11 @@
         // Gas estimation helper
         async function estimateGas(txData) {
             try {
+                const ethereum = await detectWallet();
+                if (!ethereum) {
+                    throw new Error('Wallet not detected');
+                }
+
                 const gasEstimate = await ethereum.request({
                     method: 'eth_estimateGas',
                     params: [txData]
@@ -619,6 +810,11 @@
             for (let i = 1; i <= maxAttempts; i++) {
                 attemptEl.textContent = i;
                 try {
+                    const ethereum = await detectWallet();
+                    if (!ethereum) {
+                        throw new Error('Wallet not detected');
+                    }
+
                     const receipt = await ethereum.request({
                         method: 'eth_getTransactionReceipt',
                         params: [txHash]
@@ -650,13 +846,18 @@
                 try {
                     await checkNetwork();
 
+                    const ethereum = await detectWallet();
+                    if (!ethereum) {
+                        throw new Error('Wallet not detected');
+                    }
+
                     const accounts = await ethereum.request({ method: 'eth_accounts' });
                     if (!accounts.length) {
                         throw new Error('Wallet not connected');
                     }
 
                     // Use Web3.js for conversions
-                    const web3 = new Web3(window.ethereum);
+                    const web3 = new Web3(ethereum);
                     const priceWei = web3.utils.toHex(web3.utils.toWei(price.toString(), 'ether'));
 
                     // Get contract ABI
@@ -708,13 +909,7 @@
                 }
             }
         });
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', () => {
-            loadListings();
-        });
     </script>
-
 </body>
 
 </html>
