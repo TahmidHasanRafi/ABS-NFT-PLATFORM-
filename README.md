@@ -149,8 +149,9 @@ README.md
 
 ## Contributing
 
-PRs welcome. Please open issues for bugs or features and follow the existing code style.
-
+* Tahmid Hasan Rafi (writing smart contract, working on backend, frontend )
+* Alvi Hasan Emon ( writing report)
+* Sanjida Akter moni (working on frontend)
 ---
 
 ## License
