@@ -1,4 +1,4 @@
-# ZKSync Era Decentralized NFT Marketplace
+# ABS Decentralized NFT Marketplace
 
 A decentralized NFT Marketplace built on **ZKSync Era**, allowing users to **mint**, **list**, **buy**, and **view** unique NFTs. The project uses Solidity smart contracts, a Flask backend, and a responsive HTML/CSS/JavaScript frontend, leveraging **Web3.py** and **Filebase (S3 → IPFS)** for asset storage.
 
