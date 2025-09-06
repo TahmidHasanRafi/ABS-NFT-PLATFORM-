@@ -56,34 +56,43 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Control the width and height of the NFT cards */
+/* Flexbox for the container of the NFT cards */
+.nft-grid {
+    display: flex;
+    flex-wrap: wrap; /* Ensures the cards wrap into the next row when space is full */
+    justify-content: flex-start; /* Aligns the cards to the left */
+    gap: 15px; /* Adds space between the cards */
+}
+
+/* Fixed width and height for the NFT cards */
 .nft-card {
-    width: 250px;  /* Set fixed width for each card */
-    height: 400px;  /* Set fixed height for each card */
+    width: 250px;  /* Fixed width of each card */
+    height: 400px;  /* Fixed height of each card */
     box-sizing: border-box;
-    margin: 10px;  /* Optional: Add margin between cards */
+    margin-bottom: 15px;  /* Optional: Adds margin between rows of cards */
 }
 
-/* Control the image size within the card */
+/* Image inside the card */
 .nft-card .card-img-top {
-    width: 100%;  /* Make image take up full width of the card */
-    height: 200px;  /* Set image height */
-    object-fit: cover;  /* Ensure the image covers the area without distortion */
+    width: 100%;  /* Makes the image fill the width of the card */
+    height: 200px;  /* Fixed image height */
+    object-fit: cover;  /* Ensures the image covers the area without distortion */
 }
 
-/* Control the card body content */
+/* Card body */
 .nft-card .card-body {
     padding: 10px 15px;  /* Adjust padding to make the content more compact */
-    height: calc(100% - 210px);  /* Adjust the height to fit the body inside the fixed card height */
+    height: calc(100% - 210px);  /* Adjust height to fit the body inside the fixed card height */
     overflow: hidden;  /* Optional: Hide overflow if content is too long */
 }
 
-/* Control the footer section of the card */
+/* Card footer */
 .nft-card .card-footer {
     padding: 10px 15px;  /* Adjust padding inside the footer */
     text-align: center;  /* Optional: Center the content */
     height: 60px;  /* Set fixed height for the footer */
 }
+
 
 
     </style>
@@ -947,6 +956,7 @@
 </body>
 
 </html>
+
 
 
 
