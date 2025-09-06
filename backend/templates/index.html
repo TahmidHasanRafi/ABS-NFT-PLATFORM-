@@ -56,20 +56,38 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        .nft-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            /* Optional: adds space between the items */
-            justify-content: flex-start;
-        }
-
         .nft-card {
-            min-height: 200px;
-            flex: 0 0 30%;
-            /* This makes each NFT take up 30% of the row width */
-            box-sizing: border-box;
-        }
+    flex: 0 0 30%;  /* Keeps 3 cards per row */
+    box-sizing: border-box;
+    min-height: 350px;  /* Set to the height you prefer */
+}
+
+.nft-card .card-img-top {
+    height: 200px;  /* Adjust image height */
+    object-fit: cover;  /* Ensure image covers the space without distortion */
+}
+
+.nft-card .card-body {
+    padding: 10px 15px;  /* Reduce padding in the card body */
+}
+
+.nft-card .card-body h5 {
+    font-size: 18px;  /* Smaller title font size */
+}
+
+.nft-card .card-body p {
+    font-size: 14px;  /* Smaller description font size */
+}
+
+.nft-card .card-footer {
+    padding: 10px 15px;  /* Reduce padding in the footer */
+}
+
+.nft-card .card-footer .btn {
+    font-size: 14px;  /* Smaller button text */
+    padding: 8px 12px;  /* Smaller button size */
+}
+
     </style>
 </head>
 
@@ -931,6 +949,7 @@
 </body>
 
 </html>
+
 
 
 
