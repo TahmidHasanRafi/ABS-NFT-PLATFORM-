@@ -55,6 +55,20 @@
         #disconnect-btn:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+
+        .nft-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            /* Optional: adds space between the items */
+            justify-content: flex-start;
+        }
+
+        .nft-card {
+            flex: 0 0 30%;
+            /* This makes each NFT take up 30% of the row width */
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
@@ -127,7 +141,7 @@
                     <div class="header-text">
                         <h6>ABS NFT Market</h6>
                         <h2>Create, Sell &amp; Collect Top NFT’s.</h2>
-                        <p>ABS NFT Market is a really cool and professional  NFT websites.</p>
+                        <p>ABS NFT Market is a really cool and professional NFT websites.</p>
                         <div class="buttons">
                             <div class="border-button">
                                 <a href="#explore-section">Explore Top NFTs</a>
@@ -398,8 +412,15 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="nft-grid" id="nft-listings">
+                        <div class="nft-card">
+                            <!-- Your NFT item content here -->
+                        </div>
+                        <div class="nft-card">
+                            <!-- Your NFT item content here -->
+                        </div>
                         <div class="text-center py-5">
                             <div class="spinner-border text-light" role="status">
+
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                             <p class="mt-3">Loading NFTs...</p>
@@ -664,7 +685,7 @@
                 if (data.success && data.nfts.length > 0) {
                     data.nfts.forEach(nft => {
                         const col = document.createElement('div');
-                        col.className = 'col-lg-3 col-md-4 col-sm-6 mb-4';
+                        col.className = 'nft-card';
                         col.innerHTML = `
                             <div class="card h-100">
                                 <img src="${nft.image || 'https://placehold.co/400x400?text=No+Image'}" 
