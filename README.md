@@ -1,6 +1,8 @@
-# ABS Decentralized NFT Marketplace
+<img width="755" height="385" alt="image" src="https://github.com/user-attachments/assets/d22cdc5d-392c-4688-9645-472ac68ebc44" /># ABS Decentralized NFT Marketplace
 
 A decentralized NFT Marketplace built on **ZKSync Era**, allowing users to **mint**, **list**, **buy**, and **view** unique NFTs. The project uses Solidity smart contracts, a Flask backend, and a responsive HTML/CSS/JavaScript frontend, leveraging **Web3.py** and **Filebase (S3 → IPFS)** for asset storage.
+
+If you want to explore this platform you need zksync sepolia test net.
 
 ---
 
@@ -19,6 +21,15 @@ A decentralized NFT Marketplace built on **ZKSync Era**, allowing users to **min
 * **Marketplace View** — Browse all NFTs currently listed for sale.
 
 ---
+
+## How to get zksync sepolia - 
+* install metamask extension
+* create a wallet
+* copy wallet address and go to this site for sepolia testnet first - https://faucet.metana.io/
+* inter your wallet address and wait for sepolia testnet
+* after get sepolia now you need to bridge to zksync sepolia testnet. so go to this site for bridge - https://bridge.zksync.io . and select  - From  Ethereum Sepolia Testnet  ----->   To   ZKsync Gateway Testnet.
+
+
 
 ## Tech Stack
 
@@ -162,5 +173,5 @@ MIT
 
 ## Contact
 
-Your Name — Tahmid Rafi
+Tahmid Hasan Rafi. 
 Project video demo: [https://youtu.be/XQYFUFkpM48](https://youtu.be/XQYFUFkpM48)
