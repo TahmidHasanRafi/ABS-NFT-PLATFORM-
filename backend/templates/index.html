@@ -589,9 +589,9 @@
                 const truncatedAddress = address.substring(0, 6) + '...' + address.substring(address.length - 4);
                 walletSection.innerHTML = `
           <div class="text-light me-3 d-flex align-items-center">
-            <span class="wallet-address">${truncatedAddress}</span>
+            <span class="wallet-address text-dark">${truncatedAddress}</span>
           </div>
-          <button id="disconnect-btn" class="btn btn-outline-light">Disconnect</button>
+          <button id="disconnect-btn" class="btn btn-outline-danger">Disconnect</button>
         `;
                 profileNavItem.style.display = 'block';
 
@@ -956,6 +956,7 @@
 </body>
 
 </html>
+
 
 
 
