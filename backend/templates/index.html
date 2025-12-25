@@ -718,11 +718,11 @@
                                      class="card-img-top nft-image" alt="${nft.name}"
                                      onerror="this.src='https://placehold.co/400x400?text=Image+Not+Available'">
                                 <div class="card-body">
-                                    <h5 class="card-title">${nft.name}</h5>
-                                    <p class="text-truncate">${nft.description || 'No description'}</p>
-                                    <p class="fw-bold">Price: ${nft.price} ETH</p>
+                                    <h5 class="card-title text-dark">${nft.name}</h5>
+                                    <p class="text-truncate text-dark">${nft.description || 'No description'}</p>
+                                    <p class="fw-bold text-dark">Price: ${nft.price} ETH</p>
                                     
-                                    <p class="small text-muted owner-address">Owner: ${nft.owner.substring(0, 6)}...${nft.owner.substring(nft.owner.length - 4)}</p>
+                                    <p class="small text-muted owner-address text-dark">Owner: ${nft.owner.substring(0, 6)}...${nft.owner.substring(nft.owner.length - 4)}</p>
                                    
                                 </div>
                                 <div class="card-footer bg-white">
@@ -956,6 +956,7 @@
 </body>
 
 </html>
+
 
 
 
